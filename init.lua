@@ -392,3 +392,93 @@ elseif( feldweg_feldweg_mode == "mesh" ) then
  
 	                                          
 end
+
+-- create stairs if possible
+if( minetest.get_modpath("stairs") and stairs and stairs.register_stair_and_slab) then
+	stairs.register_stair_and_slab("feldweg", "feldweg:feldweg",
+		 {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		 {"feldweg_feldweg.png","default_dirt.png", "default_grass.png","default_grass.png","feldweg_feldweg.png","feldweg_feldweg.png"},
+		 S("Dirt Road Stairs"),
+		 S("Dirt Road, half height"),
+		 feldweg.sounds.dirt)
+ end
+ 
+ if( feldweg_feldweg_mode == "nodebox" or feldweg_feldweg_mode == "mesh" ) then
+		 local box_slope = {
+			 type = "fixed",
+			 fixed = {
+				 {-0.5,  -0.5,  -0.5, 0.5, -0.25, 0.5},
+				 {-0.5, -0.25, -0.25, 0.5,     0, 0.5},
+				 {-0.5,     0,     0, 0.5,  0.25, 0.5},
+				 {-0.5,  0.25,  0.25, 0.5,   0.5, 0.5}
+			 }};
+ 
+	 local box_slope_long = {
+			 type = "fixed",
+			 fixed = {
+				 {-0.5,  -0.5,  -1.5, 0.5, -0.10, 0.5},
+				 {-0.5, -0.25,  -1.3, 0.5, -0.25, 0.5},
+				 {-0.5, -0.25,  -1.0, 0.5,     0, 0.5},
+				 {-0.5,     0,  -0.5, 0.5,  0.25, 0.5},
+				 {-0.5,  0.25,     0, 0.5,   0.5, 0.5}
+			 }};
+ 
+	 minetest.register_node("feldweg:feldweg_slope", {
+		 description = ("dirt road slope"),
+		 paramtype2 = "facedir",
+		 groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		 legacy_facedir_simple = true,
+		 groups = {crumbly=3},
+		 sounds = default.node_sound_dirt_defaults(),
+		 is_ground_content = false,
+		 tiles = {"feldweg_feldweg_end.png","default_dirt.png^default_grass_side.png",
+			 "default_dirt.png", "default_grass.png",
+			 "feldweg_feldweg_surface.png",
+			 "feldweg_feldweg_surface.png^feldweg_feldweg_edges.png"},
+		 paramtype = "light",
+		 drawtype = "mesh",
+		 mesh = "feldweg_slope.obj",
+ 
+				 collision_box = box_slope,
+		 selection_box = box_slope,
+	 })
+ 
+								  
+											   
+	 minetest.register_node("feldweg:feldweg_slope_long", {
+		 description = ("dirt road slope long"),
+		 paramtype2 = "facedir",
+		 groups = {snappy=2,choppy=2,oddly_breakable_by_hand=2},
+		 legacy_facedir_simple = true,
+		 groups = {crumbly=3},
+		 sounds = default.node_sound_dirt_defaults(),
+		 is_ground_content = false,
+		 tiles = {"feldweg_feldweg_end.png","default_dirt.png^default_grass_side.png",
+			 "default_dirt.png", "default_grass.png",
+			 "feldweg_feldweg_surface.png",
+			 "feldweg_feldweg_surface.png^feldweg_feldweg_edges.png"},
+		 paramtype = "light",
+		 drawtype = "mesh",
+		 mesh = "feldweg_slope_long.obj",
+				 collision_box = box_slope_long,
+		 selection_box = box_slope_long,
+	 })
+			 
+											   
+	 minetest.register_craft({
+		 output = "feldweg:feldweg_slope 3",
+		 recipe = {
+			 {"feldweg:feldweg", "", "" },
+			 {"feldweg:feldweg", "feldweg:feldweg", ""}
+		 },
+	 })	     
+											   
+	 minetest.register_craft({
+		 output = "feldweg:feldweg_slope_long 4",
+		 recipe = {
+			 {"feldweg:feldweg", "", "" },
+			 {"feldweg:feldweg", "feldweg:feldweg", "feldweg:feldweg"}
+		 },
+	 })
+ end
+ 
