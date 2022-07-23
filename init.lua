@@ -155,4 +155,48 @@ minetest.register_craft({
 	},
 })
 
+minetest.register_craft({
+	output = "feldweg:feldweg_crossing 5",
+	recipe = {
+		{"", "feldweg:feldweg", "" },
+		{"feldweg:feldweg", "feldweg:feldweg", "feldweg:feldweg"},
+		{"", "feldweg:feldweg", "" },
+	},
+})
+
+minetest.register_craft({
+	output = "feldweg:feldweg_t_junction 5",
+	recipe = {
+		{"", "feldweg:feldweg", "" },
+		{"", "feldweg:feldweg", "" },
+		{"feldweg:feldweg", "feldweg:feldweg", "feldweg:feldweg"}
+		
+	},
+})	
+
+minetest.register_craft({
+	output = "feldweg:feldweg_curve 5",
+	recipe = {
+		{"feldweg:feldweg", "", "" },
+		{"feldweg:feldweg", "", ""},
+		{"feldweg:feldweg", "feldweg:feldweg", "feldweg:feldweg"}
+	},
+})									                                       
+   
+minetest.register_craft({
+	output = "feldweg:feldweg_end 5",
+	recipe = {
+		{"feldweg:feldweg", "", "feldweg:feldweg" },
+		{"feldweg:feldweg", "feldweg:feldweg", "feldweg:feldweg"}
+	},
+})
+
+minetest.register_craft({
+	output = "feldweg:feldweg 5",
+	recipe = {
+		{"", "default:sand", "" },
+		{"default:dirt", "default:dirt", "default:dirt"}
+	},
+})
+
 print("[MOD] feldweg loaded!")
